@@ -1,0 +1,10 @@
+{
+  "hero_title": "93-Model Swarm Command Center",
+  "hero_subtitle": "Military-grade AI orchestration engine coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration.",
+  "section_models": "Auto-routing classifies prompt complexity and dispatches to optimal tier for latency-quality tradeoff.",
+  "section_agents": "15 specialized frameworks for autonomous task execution, memory management, and multi-agent coordination.",
+  "section_architecture": "End-to-end request flow from application layer through SwarmRouter to model execution.",
+  "section_cloud": "A100 80GB GPU cluster running vLLM, AutoML, OCR, and research agent workloads.",
+  "section_repos": "Complete repository map spanning agent frameworks, OSINT tools, security scanners, and development utilities.",
+  "section_sentinel": "OSINT-powered security monitoring and threat intelligence platform integrated with guardian-cli."
+}

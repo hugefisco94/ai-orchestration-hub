@@ -1,0 +1,38 @@
+{
+  "t1": {
+    "label": "T1 — Fast",
+    "badge": "< 5s",
+    "desc": "Low-latency routing for quick lookups, classification, and lightweight generation.",
+    "models": [
+      {"id": "gemini-flash", "name": "Gemini 2.0 Flash", "provider": "Google", "latency": "~3s"},
+      {"id": "gemini3-flash", "name": "Gemini 3 Flash", "provider": "Google", "latency": "~3s"},
+      {"id": "qwen3-coder", "name": "Qwen 3 Coder", "provider": "Alibaba", "latency": "~5s"},
+      {"id": "mistral-small", "name": "Mistral Small", "provider": "Mistral AI", "latency": "~4s"},
+      {"id": "minimax-m2.5", "name": "MiniMax M2.5", "provider": "MiniMax", "latency": "~4s"},
+      {"id": "claude-haiku", "name": "Claude 4.5 Haiku", "provider": "Anthropic", "latency": "~5s"}
+    ]
+  },
+  "t2": {
+    "label": "T2 — Power",
+    "badge": "5-15s",
+    "desc": "Balanced tier for complex reasoning, code generation, and multi-step analysis.",
+    "models": [
+      {"id": "deepseek-v3", "name": "DeepSeek-V3", "provider": "DeepSeek", "latency": "~5s"},
+      {"id": "gemini3-pro", "name": "Gemini 3 Pro", "provider": "Google", "latency": "~7s"},
+      {"id": "qwen3-235b", "name": "Qwen 3 235B", "provider": "Alibaba", "latency": "~14s"},
+      {"id": "gpt-4o", "name": "GPT-4o", "provider": "OpenAI", "latency": "~6s"},
+      {"id": "claude-sonnet", "name": "Claude Sonnet 4.6", "provider": "Anthropic", "latency": "~8s"}
+    ]
+  },
+  "t3": {
+    "label": "T3 — Deep",
+    "badge": "> 15s",
+    "desc": "Maximum capability tier for deep reasoning, research synthesis, and architectural decisions.",
+    "models": [
+      {"id": "deepseek-r1", "name": "DeepSeek-R1", "provider": "DeepSeek", "latency": "~21s"},
+      {"id": "gpt-5", "name": "GPT-5", "provider": "OpenAI", "latency": "~18s"},
+      {"id": "claude-opus", "name": "Claude Opus 4.6", "provider": "Anthropic", "latency": "~20s"},
+      {"id": "grok-4", "name": "Grok 4", "provider": "xAI", "latency": "~16s"}
+    ]
+  }
+}

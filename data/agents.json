@@ -1,0 +1,107 @@
+[
+  {
+    "name": "claude-flow",
+    "desc": "Enterprise multi-agent orchestration platform with workflow definition and inter-agent communication.",
+    "tag": "Orchestration",
+    "color": "cyan",
+    "url": "https://github.com/Swn94/claude-flow"
+  },
+  {
+    "name": "agent-lightning",
+    "desc": "Microsoft agent optimization framework for response quality and token efficiency.",
+    "tag": "Optimization",
+    "color": "green",
+    "url": "https://github.com/Swn94/agent-lightning"
+  },
+  {
+    "name": "gru",
+    "desc": "Autonomous agent with persistent long-term memory and self-directed task execution.",
+    "tag": "Autonomous",
+    "color": "purple",
+    "url": "https://github.com/Swn94/gru"
+  },
+  {
+    "name": "strix",
+    "desc": "Lightweight AI agent framework with tool server integration and CLI wrapper.",
+    "tag": "Framework",
+    "color": "cyan",
+    "url": "https://github.com/Swn94/strix"
+  },
+  {
+    "name": "allama",
+    "desc": "LLM agent framework with FastAPI backend, MCP bridge, and 9-tool integration.",
+    "tag": "LLM Agent",
+    "color": "green",
+    "url": "https://github.com/Swn94/allama"
+  },
+  {
+    "name": "CrewAI",
+    "desc": "Multi-agent AI framework for collaborative task execution with role-based agents.",
+    "tag": "Multi-Agent",
+    "color": "purple",
+    "url": "https://github.com/crewAIInc/crewAI"
+  },
+  {
+    "name": "MemoryOS",
+    "desc": "Operating system for agent memory with ChromaDB, MCP server, and playground.",
+    "tag": "Memory",
+    "color": "orange",
+    "url": "https://github.com/Swn94/MemoryOS"
+  },
+  {
+    "name": "ReMe",
+    "desc": "Task, personal, and tool memory MCP server by Alibaba for agent enhancement.",
+    "tag": "Memory",
+    "color": "orange",
+    "url": "https://github.com/Swn94/ReMe"
+  },
+  {
+    "name": "guardian-cli",
+    "desc": "LangGraph-powered security agent for automated vulnerability assessment.",
+    "tag": "Security",
+    "color": "red",
+    "url": "https://github.com/Swn94/guardian-cli"
+  },
+  {
+    "name": "kg-gen",
+    "desc": "Automated knowledge graph generation from text with NetworkX and JSON-LD output.",
+    "tag": "Knowledge",
+    "color": "cyan",
+    "url": "https://github.com/Swn94/kg-gen"
+  },
+  {
+    "name": "storm",
+    "desc": "Stanford knowledge synthesis engine for research-grade content generation.",
+    "tag": "Research",
+    "color": "purple",
+    "url": "https://github.com/Swn94/storm"
+  },
+  {
+    "name": "cognee",
+    "desc": "Cognitive knowledge management with graph-based reasoning and retrieval.",
+    "tag": "Knowledge",
+    "color": "cyan",
+    "url": "https://github.com/Swn94/cognee"
+  },
+  {
+    "name": "RAG-Anything",
+    "desc": "Universal RAG framework supporting any document type with hybrid retrieval.",
+    "tag": "RAG",
+    "color": "green",
+    "url": "https://github.com/Swn94/RAG-Anything"
+  },
+  {
+    "name": "supermemory",
+    "desc": "Advanced memory management system for persistent agent context and recall.",
+    "tag": "Memory",
+    "color": "orange",
+    "url": "https://github.com/Swn94/supermemory"
+  },
+  {
+    "name": "Auto-Claude",
+    "desc": "Automated Claude agent orchestration with self-improving task pipelines.",
+    "tag": "Automation",
+    "color": "cyan",
+    "url": "https://github.com/Swn94/Auto-Claude"
+  }
+]
