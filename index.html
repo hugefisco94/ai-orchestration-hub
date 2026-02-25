@@ -4,11 +4,14 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Orchestration Hub — 93-Model Swarm Command Center</title>
-  <meta name="description" content="Military-grade AI orchestration dashboard coordinating 93 models across 15 agent frameworks. Real-time swarm routing, multi-tier model consensus, and GPU cloud integration."/>
+  <meta name="description" content="Enterprise-grade AI orchestration dashboard coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration."/>
   <meta property="og:title" content="AI Orchestration Hub — 93-Model Swarm Command Center"/>
   <meta property="og:description" content="93-Model Swarm Command Center with 15 Agent Frameworks, Project Sentinel Security, and Elice A100 GPU Cloud."/>
   <meta property="og:type" content="website"/>
   <meta name="theme-color" content="#0a0e1a"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -19,36 +22,47 @@
 
 <!-- Header -->
 <header class="header" role="banner">
-  <h1><span>AI</span> Orchestration Hub</h1>
-  <nav class="header-nav" aria-label="Main navigation">
-    <a href="#models">Models</a>
-    <a href="#agents">Agents</a>
-    <a href="#architecture">Architecture</a>
-    <a href="#sentinel">Sentinel</a>
-    <a href="#cloud">Cloud</a>
-    <a href="#repos">Repos</a>
+  <div class="header-left">
+    <h1><span class="accent">AI</span> Orchestration Hub</h1>
+  </div>
+  <nav class="header-nav" id="main-nav" aria-label="Main navigation">
+    <a href="#models" data-en="Models" data-ko="모델">Models</a>
+    <a href="#agents" data-en="Agents" data-ko="에이전트">Agents</a>
+    <a href="#architecture" data-en="Architecture" data-ko="아키텍처">Architecture</a>
+    <a href="#sentinel" data-en="Sentinel" data-ko="센티넬">Sentinel</a>
+    <a href="#cloud" data-en="Cloud" data-ko="클라우드">Cloud</a>
+    <a href="#repos" data-en="Repos" data-ko="레포">Repos</a>
   </nav>
-  <div class="header-stats" aria-label="System status">
-    <span><span class="pulse" aria-hidden="true"></span>SYSTEM <span class="stat-val">ONLINE</span></span>
-    <span>Models: <span class="stat-val">93</span></span>
-    <span>Agents: <span class="stat-val">15</span></span>
-    <span>GPU: <span class="stat-val">A100 80GB</span></span>
+  <div class="header-right">
+    <div class="header-stats" aria-label="System status">
+      <span><span class="pulse" aria-hidden="true"></span><span data-en="ONLINE" data-ko="온라인">ONLINE</span></span>
+    </div>
+    <div class="lang-toggle" role="radiogroup" aria-label="Language selection">
+      <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+      <button class="lang-btn" data-lang="ko" aria-pressed="false">한국어</button>
+    </div>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
 <main id="main-content">
 
   <!-- Hero -->
-  <div class="hero">
-    <h2>93-Model Swarm<br/>Command Center</h2>
-    <p id="hero-subtitle">Military-grade AI orchestration engine coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration.</p>
-    <div class="hero-badges" aria-label="Key technologies">
-      <span class="badge badge-cyan">SwarmRouter</span>
-      <span class="badge badge-green">LiteLLM Proxy</span>
-      <span class="badge badge-purple">OpenRouter Wildcard</span>
-      <span class="badge badge-orange">A100 GPU Cloud</span>
+  <section class="hero">
+    <div class="hero-inner">
+      <h2 class="hero-title" data-en="93-Model Swarm&#10;Command Center" data-ko="93-모델 스웜&#10;커맨드 센터">93-Model Swarm<br/>Command Center</h2>
+      <p class="hero-subtitle" id="hero-subtitle" data-en="Enterprise-grade AI orchestration engine coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration." data-ko="93개 AI 모델을 15개 에이전트 프레임워크에서 실시간 스웜 라우팅, 멀티 티어 합의, GPU 클라우드 통합으로 조율하는 엔터프라이즈급 AI 오케스트레이션 엔진.">Enterprise-grade AI orchestration engine coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration.</p>
+      <p class="ko-humor" data-ko-only="true">(방구석 분석가의 꿈의 대시보드 🛋️)</p>
+      <div class="hero-badges" aria-label="Key technologies">
+        <span class="badge badge-cyan">SwarmRouter</span>
+        <span class="badge badge-green">LiteLLM Proxy</span>
+        <span class="badge badge-purple">OpenRouter Wildcard</span>
+        <span class="badge badge-orange">A100 GPU Cloud</span>
+      </div>
     </div>
-  </div>
+  </section>
 
   <div class="container">
 
@@ -56,20 +70,21 @@
     <div class="stats-bar section-animate" role="region" aria-label="Dashboard statistics">
       <div class="stat-card">
         <div class="stat-number" data-target="93">0</div>
-        <div class="stat-label">AI Models</div>
+        <div class="stat-label" data-en="AI Models" data-ko="AI 모델">AI Models</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" data-target="15">0</div>
-        <div class="stat-label">Agent Frameworks</div>
+        <div class="stat-label" data-en="Agent Frameworks" data-ko="에이전트 프레임워크">Agent Frameworks</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" data-target="60" data-suffix="+">0</div>
-        <div class="stat-label">Repositories</div>
+        <div class="stat-label" data-en="Repositories" data-ko="레포지토리">Repositories</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" data-target="3">0</div>
-        <div class="stat-label">Routing Tiers</div>
+        <div class="stat-label" data-en="Routing Tiers" data-ko="라우팅 티어">Routing Tiers</div>
       </div>
+      <p class="ko-humor stats-humor" data-ko-only="true">혼자서 이 짓을... 🫡</p>
     </div>
 
     <!-- Wildcard Router -->
@@ -77,20 +92,20 @@
       <div class="wildcard-banner">
         <div class="wildcard-icon" aria-hidden="true">&#x1F300;</div>
         <div class="wildcard-text">
-          <h3 id="router-title">OpenRouter Wildcard Routing</h3>
-          <p>Dynamic model resolution via <code>openrouter/*</code> wildcard. Any OpenRouter-compatible model is accessible on-demand through LiteLLM proxy with automatic failover and health monitoring.</p>
+          <h3 id="router-title" data-en="OpenRouter Wildcard Routing" data-ko="OpenRouter 와일드카드 라우팅">OpenRouter Wildcard Routing</h3>
+          <p data-en="Dynamic model resolution via openrouter/* wildcard. Any OpenRouter-compatible model is accessible on-demand through LiteLLM proxy with automatic failover and health monitoring." data-ko="openrouter/* 와일드카드를 통한 동적 모델 해석. LiteLLM 프록시를 통해 자동 페일오버와 상태 모니터링으로 모든 OpenRouter 호환 모델에 온디맨드 접근.">Dynamic model resolution via openrouter/* wildcard. Any OpenRouter-compatible model is accessible on-demand through LiteLLM proxy with automatic failover and health monitoring.</p>
         </div>
         <div class="wildcard-count" aria-label="93 active models">
           <div class="num">93</div>
-          <div class="label">Active Models</div>
+          <div class="label" data-en="Active Models" data-ko="활성 모델">Active Models</div>
         </div>
       </div>
     </section>
 
     <!-- Model Swarm Tiers -->
     <section id="models" class="section-animate" aria-labelledby="models-title">
-      <h2 class="section-title" id="models-title"><span class="icon" aria-hidden="true">&#x26A1;</span> Model Swarm Tiers</h2>
-      <p class="section-sub">Auto-routing classifies prompt complexity and dispatches to optimal tier for latency-quality tradeoff.</p>
+      <h2 class="section-title" id="models-title"><span class="icon" aria-hidden="true">&#x26A1;</span> <span data-en="Model Swarm Tiers" data-ko="모델 스웜 티어">Model Swarm Tiers</span></h2>
+      <p class="section-sub" data-en="Auto-routing classifies prompt complexity and dispatches to optimal tier for latency-quality tradeoff." data-ko="자동 라우팅이 프롬프트 복잡도를 분류하고 지연-품질 트레이드오프를 위한 최적 티어로 디스패치합니다.">Auto-routing classifies prompt complexity and dispatches to optimal tier for latency-quality tradeoff.</p>
       <div class="tier-grid" id="tier-grid" role="region" aria-label="Model tiers">
         <!-- Populated by JS from data/tiers.json -->
       </div>
@@ -98,60 +113,77 @@
 
     <!-- Architecture -->
     <section id="architecture" class="section-animate" aria-labelledby="arch-title">
-      <h2 class="section-title" id="arch-title"><span class="icon" aria-hidden="true">&#x1F3D7;</span> Orchestration Architecture</h2>
-      <p class="section-sub">End-to-end request flow from application layer through SwarmRouter to model execution.</p>
-      <div class="arch-container" role="img" aria-label="Architecture flow diagram showing Application to SwarmRouter to LiteLLM Proxy to Providers to Model Execution">
+      <h2 class="section-title" id="arch-title"><span class="icon" aria-hidden="true">&#x1F3D7;</span> <span data-en="Orchestration Architecture" data-ko="오케스트레이션 아키텍처">Orchestration Architecture</span></h2>
+      <p class="section-sub" data-en="End-to-end request flow from application layer through SwarmRouter to model execution." data-ko="애플리케이션 레이어에서 SwarmRouter를 거쳐 모델 실행까지의 엔드투엔드 요청 플로우.">End-to-end request flow from application layer through SwarmRouter to model execution.</p>
+      <div class="arch-container" role="img" aria-label="Architecture flow diagram">
+        <div class="arch-row-label" data-en="Orchestration Layer" data-ko="오케스트레이션 레이어">Orchestration Layer</div>
         <div class="arch-flow">
           <div class="arch-node">
             <div class="node-icon" aria-hidden="true">&#x1F4BB;</div>
             <div class="node-label">Application</div>
             <div class="node-sub">Claude Code / API</div>
           </div>
-          <div class="arch-arrow" aria-hidden="true">&#x2192;</div>
-          <div class="arch-node" style="border-color:var(--accent-purple)">
+          <div class="arch-arrow" aria-hidden="true">
+            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-node node-purple">
             <div class="node-icon" aria-hidden="true">&#x1F300;</div>
             <div class="node-label">SwarmRouter</div>
-            <div class="node-sub">T1/T2/T3 Classify</div>
+            <div class="node-sub">T1 / T2 / T3</div>
           </div>
-          <div class="arch-arrow" aria-hidden="true">&#x2192;</div>
-          <div class="arch-node" style="border-color:var(--accent-green)">
+          <div class="arch-arrow" aria-hidden="true">
+            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-node node-green">
             <div class="node-icon" aria-hidden="true">&#x2699;</div>
             <div class="node-label">LiteLLM Proxy</div>
             <div class="node-sub">93 Models</div>
           </div>
-          <div class="arch-arrow" aria-hidden="true">&#x2192;</div>
-          <div class="arch-node" style="border-color:var(--accent-orange)">
+          <div class="arch-arrow" aria-hidden="true">
+            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-node node-orange">
             <div class="node-icon" aria-hidden="true">&#x1F310;</div>
             <div class="node-label">Providers</div>
             <div class="node-sub">OpenRouter / Direct</div>
           </div>
-          <div class="arch-arrow" aria-hidden="true">&#x2192;</div>
-          <div class="arch-node" style="border-color:var(--accent-cyan)">
+          <div class="arch-arrow" aria-hidden="true">
+            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-node node-cyan">
             <div class="node-icon" aria-hidden="true">&#x1F9E0;</div>
             <div class="node-label">Model Exec</div>
             <div class="node-sub">GPU / Cloud</div>
           </div>
         </div>
-        <div class="arch-flow" style="margin-top:1.5rem">
+        <div class="arch-divider"></div>
+        <div class="arch-row-label" data-en="Knowledge &amp; Agent Layer" data-ko="지식 &amp; 에이전트 레이어">Knowledge &amp; Agent Layer</div>
+        <div class="arch-flow">
           <div class="arch-node">
             <div class="node-icon" aria-hidden="true">&#x1F50D;</div>
             <div class="node-label">Knowledge Graph</div>
             <div class="node-sub">kg-gen / cognee</div>
           </div>
-          <div class="arch-arrow" aria-hidden="true">&#x2192;</div>
-          <div class="arch-node" style="border-color:var(--accent-purple)">
+          <div class="arch-arrow" aria-hidden="true">
+            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-node node-purple">
             <div class="node-icon" aria-hidden="true">&#x1F4DA;</div>
             <div class="node-label">RAG Pipeline</div>
             <div class="node-sub">RAG-Anything</div>
           </div>
-          <div class="arch-arrow" aria-hidden="true">&#x2192;</div>
-          <div class="arch-node" style="border-color:var(--accent-green)">
+          <div class="arch-arrow" aria-hidden="true">
+            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-node node-green">
             <div class="node-icon" aria-hidden="true">&#x1F9E0;</div>
             <div class="node-label">Memory Layer</div>
             <div class="node-sub">MemoryOS / ReMe</div>
           </div>
-          <div class="arch-arrow" aria-hidden="true">&#x2192;</div>
-          <div class="arch-node" style="border-color:var(--accent-cyan)">
+          <div class="arch-arrow" aria-hidden="true">
+            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-node node-cyan">
             <div class="node-icon" aria-hidden="true">&#x1F916;</div>
             <div class="node-label">Agent Teams</div>
             <div class="node-sub">15 Frameworks</div>
@@ -162,10 +194,10 @@
 
     <!-- Agent Frameworks -->
     <section id="agents" class="section-animate" aria-labelledby="agents-title">
-      <h2 class="section-title" id="agents-title"><span class="icon" aria-hidden="true">&#x1F916;</span> Agent Framework Catalog</h2>
-      <p class="section-sub">15 specialized frameworks for autonomous task execution, memory management, and multi-agent coordination.</p>
+      <h2 class="section-title" id="agents-title"><span class="icon" aria-hidden="true">&#x1F916;</span> <span data-en="Agent Framework Catalog" data-ko="에이전트 프레임워크 카탈로그">Agent Framework Catalog</span></h2>
+      <p class="section-sub" data-en="15 specialized frameworks for autonomous task execution, memory management, and multi-agent coordination." data-ko="자율 작업 실행, 메모리 관리, 멀티 에이전트 조율을 위한 15개 전문 프레임워크.">15 specialized frameworks for autonomous task execution, memory management, and multi-agent coordination.</p>
       <div class="search-bar">
-        <input type="text" id="agent-search" placeholder="Search agents..." aria-label="Search agent frameworks"/>
+        <input type="text" id="agent-search" data-placeholder-en="Search agents..." data-placeholder-ko="에이전트 검색..." placeholder="Search agents..." aria-label="Search agent frameworks"/>
       </div>
       <div class="agent-grid" id="agent-grid" role="region" aria-label="Agent frameworks">
         <!-- Populated by JS from data/agents.json -->
@@ -174,8 +206,9 @@
 
     <!-- Project Sentinel -->
     <section id="sentinel" class="section-animate" aria-labelledby="sentinel-title">
-      <h2 class="section-title" id="sentinel-title"><span class="icon" aria-hidden="true">&#x1F6E1;</span> Project Sentinel</h2>
-      <p class="section-sub">OSINT-powered security monitoring and threat intelligence platform integrated with guardian-cli.</p>
+      <h2 class="section-title" id="sentinel-title"><span class="icon" aria-hidden="true">&#x1F6E1;</span> <span data-en="Project Sentinel" data-ko="프로젝트 센티넬">Project Sentinel</span></h2>
+      <p class="section-sub" data-en="OSINT-powered security monitoring and threat intelligence platform integrated with guardian-cli." data-ko="guardian-cli와 통합된 OSINT 기반 보안 모니터링 및 위협 인텔리전스 플랫폼.">OSINT-powered security monitoring and threat intelligence platform integrated with guardian-cli.</p>
+      <p class="ko-humor" data-ko-only="true">방구석 전략가가 만든 위협 인텔리전스 🕵️</p>
       <div id="sentinel-content" role="region" aria-label="Project Sentinel security modules">
         <!-- Populated by JS -->
       </div>
@@ -183,11 +216,12 @@
 
     <!-- GPU Cloud -->
     <section id="cloud" class="section-animate" aria-labelledby="cloud-title">
-      <h2 class="section-title" id="cloud-title"><span class="icon" aria-hidden="true">&#x2601;</span> Elice GPU Cloud</h2>
-      <p class="section-sub">A100 80GB GPU cluster running vLLM, AutoML, OCR, and research agent workloads.</p>
+      <h2 class="section-title" id="cloud-title"><span class="icon" aria-hidden="true">&#x2601;</span> <span data-en="Elice GPU Cloud" data-ko="Elice GPU 클라우드">Elice GPU Cloud</span></h2>
+      <p class="section-sub" data-en="A100 80GB GPU cluster running vLLM, AutoML, OCR, and research agent workloads." data-ko="vLLM, AutoML, OCR, 리서치 에이전트 워크로드를 실행하는 A100 80GB GPU 클러스터.">A100 80GB GPU cluster running vLLM, AutoML, OCR, and research agent workloads.</p>
+      <p class="ko-humor" data-ko-only="true">안타깝게 이건 내가 클라우드 끄면 여러분은 못쓰신다 🫠</p>
       <div class="gpu-card">
         <div class="gpu-specs">
-          <h3 style="color:var(--accent-green);margin-bottom:.5rem">Hardware</h3>
+          <h3 data-en="Hardware" data-ko="하드웨어">Hardware</h3>
           <div class="gpu-spec-item"><span class="gpu-spec-label">GPU</span><span class="gpu-spec-value">NVIDIA A100 80GB PCIe</span></div>
           <div class="gpu-spec-item"><span class="gpu-spec-label">CUDA</span><span class="gpu-spec-value">12.2</span></div>
           <div class="gpu-spec-item"><span class="gpu-spec-label">MIG Slice</span><span class="gpu-spec-value">20GB Partition</span></div>
@@ -196,7 +230,7 @@
           <div class="gpu-spec-item"><span class="gpu-spec-label">Python</span><span class="gpu-spec-value">3.10.12</span></div>
         </div>
         <div class="gpu-services">
-          <h3>Active Services</h3>
+          <h3 data-en="Active Services" data-ko="활성 서비스">Active Services</h3>
           <div class="gpu-service-list">
             <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>vLLM v0.15.1 — Qwen2.5-3B-Instruct</div>
             <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>LiteLLM Proxy — 93 Models</div>
@@ -213,10 +247,10 @@
 
     <!-- Repository Map -->
     <section id="repos" class="section-animate" aria-labelledby="repos-title">
-      <h2 class="section-title" id="repos-title"><span class="icon" aria-hidden="true">&#x1F4C1;</span> Repository Ecosystem (60+)</h2>
-      <p class="section-sub">Complete repository map spanning agent frameworks, OSINT tools, security scanners, and development utilities.</p>
+      <h2 class="section-title" id="repos-title"><span class="icon" aria-hidden="true">&#x1F4C1;</span> <span data-en="Repository Ecosystem (60+)" data-ko="레포지토리 생태계 (60+)">Repository Ecosystem (60+)</span></h2>
+      <p class="section-sub" data-en="Complete repository map spanning agent frameworks, OSINT tools, security scanners, and development utilities." data-ko="에이전트 프레임워크, OSINT 도구, 보안 스캐너, 개발 유틸리티를 아우르는 전체 레포지토리 맵.">Complete repository map spanning agent frameworks, OSINT tools, security scanners, and development utilities.</p>
       <div class="search-bar">
-        <input type="text" id="repo-search" placeholder="Search repositories..." aria-label="Search repositories"/>
+        <input type="text" id="repo-search" data-placeholder-en="Search repositories..." data-placeholder-ko="레포지토리 검색..." placeholder="Search repositories..." aria-label="Search repositories"/>
       </div>
       <div class="repo-legend" aria-label="Language legend">
         <span class="legend-item"><span class="repo-dot node" aria-hidden="true"></span> Node.js</span>
@@ -243,8 +277,11 @@
 </main>
 
 <footer class="footer" role="contentinfo">
-  <p>AI Orchestration Hub &mdash; Powered by 93 models, 15 agent frameworks, and Elice A100 GPU Cloud</p>
-  <p style="margin-top:.5rem"><a href="https://github.com/Swn94">@Swn94</a> &middot; Built with SwarmRouter + LiteLLM + OpenRouter</p>
+  <div class="footer-inner">
+    <p data-en="AI Orchestration Hub — Powered by 93 models, 15 agent frameworks, and Elice A100 GPU Cloud" data-ko="AI 오케스트레이션 허브 — 93개 모델, 15개 에이전트 프레임워크, Elice A100 GPU 클라우드">AI Orchestration Hub — Powered by 93 models, 15 agent frameworks, and Elice A100 GPU Cloud</p>
+    <p class="footer-credits"><a href="https://github.com/Swn94">@Swn94</a> &middot; SwarmRouter + LiteLLM + OpenRouter</p>
+    <p class="ko-humor footer-humor" data-ko-only="true">돈이없다... 그래도 만든다 💪</p>
+  </div>
 </footer>
 
 <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#x2191;</button>

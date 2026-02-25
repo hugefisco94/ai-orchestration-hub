@@ -1,8 +1,18 @@
-[
-  "Orchestrate 93 AI models from a single command center.",
-  "15 agent frameworks. One unified control plane.",
-  "Military-grade AI orchestration at your fingertips.",
-  "Real-time swarm routing with multi-tier consensus.",
-  "From prompt to execution in milliseconds.",
-  "Your AI command post — powered by SwarmRouter + LiteLLM."
-]
+{
+  "en": [
+    "Orchestrate 93 AI models from a single command center.",
+    "15 agent frameworks. One unified control plane.",
+    "Enterprise-grade AI orchestration at your fingertips.",
+    "Real-time swarm routing with multi-tier consensus.",
+    "From prompt to execution in milliseconds.",
+    "Your AI command post — powered by SwarmRouter + LiteLLM."
+  ],
+  "ko": [
+    "93개 AI 모델을 단일 커맨드 센터에서 오케스트레이션.",
+    "15개 에이전트 프레임워크. 하나의 통합 제어 플레인.",
+    "엔터프라이즈급 AI 오케스트레이션이 손끝에.",
+    "멀티 티어 합의와 실시간 스웜 라우팅.",
+    "프롬프트에서 실행까지 밀리초 단위.",
+    "당신의 AI 커맨드 포스트 — SwarmRouter + LiteLLM."
+  ]
+}

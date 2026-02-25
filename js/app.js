@@ -5,7 +5,6 @@
 (function() {
   'use strict';
 
-  // Data loading with error handling
   function fetchJSON(url) {
     return fetch(url).then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status + ' loading ' + url);
@@ -39,27 +38,26 @@
       var taglines = results[3];
       var sections = results[4];
 
-      // Render agents
       var agentGrid = document.getElementById('agent-grid');
       if (agentGrid) Components.renderAgents(agents, agentGrid);
 
-      // Render tiers
       var tierGrid = document.getElementById('tier-grid');
       if (tierGrid) Components.renderTiers(tiers, tierGrid);
 
-      // Render repos with categories
       var repoGrid = document.getElementById('repo-grid');
       if (repoGrid) Components.renderReposWithCategories(repos, repoGrid);
 
-      // Render Project Sentinel
       var sentinelContainer = document.getElementById('sentinel-content');
       if (sentinelContainer) Components.renderSentinel(sentinelContainer);
 
-      // Tagline rotation
+      // Tagline rotation based on current language
       var heroSub = document.getElementById('hero-subtitle');
-      if (heroSub && taglines && taglines.length) {
-        heroSub.textContent = sections.hero_subtitle || taglines[0];
-        Components.initTaglineRotation(taglines, heroSub);
+      if (heroSub && taglines) {
+        var lang = Components.getCurrentLang();
+        var lines = (lang === 'ko' && taglines.ko) ? taglines.ko : taglines.en || taglines;
+        if (Array.isArray(lines) && lines.length) {
+          Components.initTaglineRotation(lines, heroSub);
+        }
       }
 
       // Initialize interactive features
@@ -74,8 +72,9 @@
     }
   }
 
-  // Init on DOM ready
   document.addEventListener('DOMContentLoaded', function() {
+    Components.initLanguage();
+    Components.initMobileMenu();
     loadAllData();
     Components.initSectionAnimations();
     Components.initBackToTop();
