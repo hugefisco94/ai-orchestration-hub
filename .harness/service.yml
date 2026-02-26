@@ -1,0 +1,41 @@
+service:
+  name: ai-orchestration-hub
+  identifier: ai_orchestration_hub
+  orgIdentifier: hugefisco94
+  projectIdentifier: swarm_command_center
+  tags:
+    type: static-frontend
+    stack: nodejs
+    backend: service-worker
+  serviceDefinition:
+    type: NativeHelm
+    spec:
+      manifests:
+        - manifest:
+            identifier: frontend_manifest
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: github_hugefisco94
+                  gitFetchType: Branch
+                  branch: master
+                  paths:
+                    - index.html
+                    - sw.js
+                    - server.js
+                    - js/
+                    - css/
+                    - data/
+                  repoName: ai-orchestration-hub
+      artifacts:
+        primary:
+          primaryArtifactRef: docker_image
+          sources:
+            - spec:
+                connectorRef: dockerhub_hugefisco94
+                imagePath: hugefisco94/ai-orchestration-hub
+                tag: <+pipeline.sequenceId>
+              identifier: docker_image
+              type: DockerRegistry

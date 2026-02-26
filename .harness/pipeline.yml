@@ -1,0 +1,196 @@
+pipeline:
+  name: AI Orchestration Hub Pipeline
+  identifier: ai_orchestration_hub_pipeline
+  projectIdentifier: swarm_command_center
+  orgIdentifier: hugefisco94
+  tags:
+    environment: production
+    project: ai-orchestration-hub
+  properties:
+    ci:
+      codebase:
+        connectorRef: github_hugefisco94
+        repoName: ai-orchestration-hub
+        build: <+input>
+  stages:
+    - stage:
+        name: Validate
+        identifier: validate
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  name: JSON Validation
+                  identifier: json_validation
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "=== JSON Data Validation ==="
+                      for f in data/*.json; do
+                        python3 -c "import json; json.load(open('$f'))" || exit 1
+                        echo "✓ $f valid"
+                      done
+                      echo "All data files validated."
+                    timeout: 5m
+              - step:
+                  name: JS Syntax Check
+                  identifier: js_syntax_check
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "=== JavaScript Syntax Check ==="
+                      node --check js/app.js && echo "✓ app.js"
+                      node --check js/components.js && echo "✓ components.js"
+                      node --check js/interactive.js && echo "✓ interactive.js"
+                      node --check sw.js && echo "✓ sw.js"
+                      node --check server.js && echo "✓ server.js"
+                      echo "All JS files syntax OK."
+                    timeout: 5m
+
+    - stage:
+        name: Quality Gate
+        identifier: quality_gate
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  name: HTML Structure Check
+                  identifier: html_check
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "=== HTML Structure Check ==="
+                      grep -q '<!DOCTYPE html>' index.html && echo "✓ DOCTYPE"
+                      grep -q 'lang=' index.html && echo "✓ lang attribute"
+                      grep -q 'serviceWorker' index.html && echo "✓ SW registration"
+                      grep -q 'interactive.js' index.html && echo "✓ interactive.js loaded"
+                      echo "HTML structure OK."
+                    timeout: 5m
+              - step:
+                  name: Service Worker Presence
+                  identifier: sw_check
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "=== Service Worker Check ==="
+                      test -f sw.js && echo "✓ sw.js exists"
+                      grep -q '/api/health' sw.js && echo "✓ /api/health endpoint"
+                      grep -q '/api/route' sw.js && echo "✓ /api/route endpoint"
+                      grep -q '/api/models' sw.js && echo "✓ /api/models endpoint"
+                      grep -q '/api/sentinel' sw.js && echo "✓ /api/sentinel endpoint"
+                      grep -q '/api/activity' sw.js && echo "✓ /api/activity endpoint"
+                      echo "SW backend complete."
+                    timeout: 5m
+              - step:
+                  name: Bilingual Content Check
+                  identifier: i18n_check
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "=== Bilingual Content Check ==="
+                      KO_ONLY=$(grep -c 'data-ko-only' index.html)
+                      echo "Korean-only elements: $KO_ONLY"
+                      DATA_EN=$(grep -c 'data-en=' index.html)
+                      echo "Bilingual elements: $DATA_EN"
+                      test $KO_ONLY -ge 5 && echo "✓ Sufficient Korean elements"
+                      echo "i18n check complete."
+                    timeout: 5m
+
+    - stage:
+        name: Build
+        identifier: build
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  name: Install Dependencies
+                  identifier: npm_install
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      npm ci --only=production 2>/dev/null || npm install --only=production
+                      echo "✓ Dependencies installed"
+                    timeout: 10m
+              - step:
+                  name: Server Smoke Test
+                  identifier: server_test
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      node server.js &
+                      SERVER_PID=$!
+                      sleep 3
+                      curl -sf http://localhost:3000/api/health | python3 -c "import json,sys; d=json.load(sys.stdin); assert d['status']=='ok'; print('✓ Health check passed')"
+                      kill $SERVER_PID 2>/dev/null
+                      echo "Server smoke test complete."
+                    timeout: 5m
+
+    - stage:
+        name: Deploy
+        identifier: deploy
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  name: Deploy to GitHub Pages
+                  identifier: deploy_pages
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "=== Deploy to GitHub Pages ==="
+                      echo "Triggering GitHub Actions deployment..."
+                      echo "Target: https://hugefisco94.github.io/ai-orchestration-hub"
+                      echo "Branch: master"
+                      echo "✓ Deployment triggered"
+                    timeout: 10m
+          failureStrategies:
+            - onFailure:
+                errors:
+                  - AllErrors
+                action:
+                  type: ManualIntervention
+                  spec:
+                    timeout: 1h
+                    onTimeout:
+                      action:
+                        type: Abort

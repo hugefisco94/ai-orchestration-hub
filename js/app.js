@@ -79,5 +79,11 @@
     Components.initSectionAnimations();
     Components.initBackToTop();
     Components.initNavHighlight();
+
+    // Initialize interactive features (metrics, routing demo, activity feed, sentinel status, crawler)
+    if (typeof Interactive !== 'undefined') {
+      // Delay slightly to allow Service Worker to activate
+      setTimeout(function() { Interactive.init(); }, 1000);
+    }
   });
 })();

@@ -1,0 +1,20 @@
+{
+  "name": "ai-orchestration-hub",
+  "version": "2.0.0",
+  "description": "AI Orchestration Hub — 93-Model Swarm Command Center with Service Worker Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npx nodemon server.js",
+    "serve": "npx serve . -p 8080",
+    "validate": "node -e \"var fs=require('fs');var p=require('path');fs.readdirSync('data').filter(f=>f.endsWith('.json')).forEach(f=>{JSON.parse(fs.readFileSync(p.join('data',f)));console.log('OK:',f)})\""
+  },
+  "keywords": ["ai", "orchestration", "swarm", "llm", "dashboard"],
+  "author": "hugefisco94",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "ws": "^8.14.2"
+  }
+}

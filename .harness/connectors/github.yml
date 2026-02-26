@@ -1,0 +1,22 @@
+connector:
+  name: GitHub hugefisco94
+  identifier: github_hugefisco94
+  orgIdentifier: hugefisco94
+  projectIdentifier: swarm_command_center
+  type: Github
+  spec:
+    url: https://github.com/hugefisco94
+    authentication:
+      type: Http
+      spec:
+        type: UsernameToken
+        spec:
+          username: hugefisco94
+          tokenRef: account.github_pat
+    apiAccess:
+      type: Token
+      spec:
+        tokenRef: account.github_pat
+    delegateSelectors: []
+    executeOnDelegate: false
+    type: Account

@@ -1,0 +1,29 @@
+environment:
+  name: production
+  identifier: production
+  orgIdentifier: hugefisco94
+  projectIdentifier: swarm_command_center
+  type: Production
+  tags:
+    platform: github-pages
+    region: global
+    cdn: cloudflare
+  variables:
+    - name: DEPLOY_URL
+      type: String
+      value: "https://hugefisco94.github.io/ai-orchestration-hub"
+    - name: NODE_ENV
+      type: String
+      value: "production"
+    - name: SW_VERSION
+      type: String
+      value: "2.0.0"
+    - name: API_MODE
+      type: String
+      value: "service-worker"
+    - name: CRAWLER_AUTO_PURGE_HOURS
+      type: String
+      value: "6"
+  overrides:
+    manifests: []
+    configFiles: []
