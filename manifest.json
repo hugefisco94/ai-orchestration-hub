@@ -1,0 +1,23 @@
+{
+  "name": "MDO Command Center",
+  "short_name": "MDO Hub",
+  "description": "Multi-Domain Operations AI Orchestration Hub with OODA Loop — 93 Models, 15 Agent Frameworks, Harness CI/CD",
+  "start_url": "/ai-orchestration-hub/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "categories": ["productivity", "utilities", "developer"],
+  "icons": [
+    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230a0e1a'/><circle cx='256' cy='256' r='140' fill='none' stroke='%2306b6d4' stroke-width='8'/><path d='M256 116 L256 180 M256 332 L256 396 M116 256 L180 256 M332 256 L396 256' stroke='%238b5cf6' stroke-width='6' stroke-linecap='round'/><circle cx='256' cy='140' r='20' fill='%2310b981'/><circle cx='372' cy='256' r='20' fill='%23f59e0b'/><circle cx='256' cy='372' r='20' fill='%23ef4444'/><circle cx='140' cy='256' r='20' fill='%233b82f6'/><circle cx='256' cy='256' r='30' fill='%2306b6d4'/><text x='256' y='264' text-anchor='middle' fill='%230a0e1a' font-size='24' font-weight='bold'>MDO</text></svg>", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='30' fill='%230a0e1a'/><circle cx='96' cy='96' r='55' fill='none' stroke='%2306b6d4' stroke-width='4'/><circle cx='96' cy='96' r='12' fill='%2306b6d4'/><text x='96' y='100' text-anchor='middle' fill='%230a0e1a' font-size='10' font-weight='bold'>M</text></svg>", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    { "name": "OODA Cycle", "url": "/ai-orchestration-hub/#ooda", "description": "View OODA Loop Status" },
+    { "name": "MDO Domains", "url": "/ai-orchestration-hub/#domains", "description": "Multi-Domain Operations" },
+    { "name": "Agent Swarm", "url": "/ai-orchestration-hub/#agents", "description": "Agent Teams Status" }
+  ]
+}
