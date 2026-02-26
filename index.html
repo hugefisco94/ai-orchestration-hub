@@ -3,337 +3,358 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Orchestration Hub — 93-Model Swarm Command Center</title>
-  <meta name="description" content="Enterprise-grade AI orchestration dashboard coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration."/>
-  <meta property="og:title" content="AI Orchestration Hub — 93-Model Swarm Command Center"/>
-  <meta property="og:description" content="93-Model Swarm Command Center with 15 Agent Frameworks, Project Sentinel Security, and Elice A100 GPU Cloud."/>
-  <meta property="og:type" content="website"/>
+  <title>MDO Command Center — OODA Loop AI Orchestration</title>
+  <meta name="description" content="Multi-Domain Operations Command Center with OODA Loop, 93 AI Models, Agent Swarm, Harness CI/CD"/>
+  <link rel="manifest" href="manifest.json"/>
   <meta name="theme-color" content="#0a0e1a"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/style.css"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#0a0e1a;--card:#111827;--cyan:#06b6d4;--purple:#8b5cf6;--green:#10b981;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;--text:#e2e8f0;--muted:#94a3b8;--border:#1e293b}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    .container{max-width:1400px;margin:0 auto;padding:1rem}
+    header{text-align:center;padding:2rem 1rem;position:relative}
+    header h1{font-size:2.2rem;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+    header p{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;padding:.2rem .6rem;border-radius:1rem;font-size:.7rem;font-weight:700;text-transform:uppercase;margin:.2rem}
+    .badge-cyan{background:rgba(6,182,212,.15);color:var(--cyan);border:1px solid rgba(6,182,212,.3)}
+    .badge-purple{background:rgba(139,92,246,.15);color:var(--purple);border:1px solid rgba(139,92,246,.3)}
+    .badge-green{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+    .badge-amber{background:rgba(245,158,11,.15);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
+    .badge-red{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+
+    /* OODA Cycle */
+    .ooda-section{margin:2rem 0}
+    .ooda-section h2{text-align:center;color:var(--cyan);margin-bottom:1rem;font-size:1.5rem}
+    .ooda-ring{display:flex;justify-content:center;gap:0;margin:1rem auto;max-width:600px;flex-wrap:wrap}
+    .ooda-phase{flex:1;min-width:120px;padding:1.2rem .8rem;text-align:center;cursor:pointer;transition:all .3s;border:2px solid var(--border);position:relative}
+    .ooda-phase:first-child{border-radius:1rem 0 0 1rem}
+    .ooda-phase:last-child{border-radius:0 1rem 1rem 0}
+    .ooda-phase.active{transform:scale(1.05);z-index:1}
+    .ooda-phase .icon{font-size:2rem;margin-bottom:.3rem}
+    .ooda-phase .label{font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em}
+    .ooda-phase .sub{font-size:.7rem;color:var(--muted);margin-top:.2rem}
+    .ooda-phase[data-phase="observe"]{border-color:var(--green);background:rgba(16,185,129,.08)}
+    .ooda-phase[data-phase="observe"].active{background:rgba(16,185,129,.2);box-shadow:0 0 20px rgba(16,185,129,.3)}
+    .ooda-phase[data-phase="orient"]{border-color:var(--blue);background:rgba(59,130,246,.08)}
+    .ooda-phase[data-phase="orient"].active{background:rgba(59,130,246,.2);box-shadow:0 0 20px rgba(59,130,246,.3)}
+    .ooda-phase[data-phase="decide"]{border-color:var(--purple);background:rgba(139,92,246,.08)}
+    .ooda-phase[data-phase="decide"].active{background:rgba(139,92,246,.2);box-shadow:0 0 20px rgba(139,92,246,.3)}
+    .ooda-phase[data-phase="act"]{border-color:var(--amber);background:rgba(245,158,11,.08)}
+    .ooda-phase[data-phase="act"].active{background:rgba(245,158,11,.2);box-shadow:0 0 20px rgba(245,158,11,.3)}
+
+    .tempo-bar{display:flex;justify-content:center;gap:.5rem;margin:1rem 0}
+    .tempo-btn{padding:.4rem 1rem;border-radius:2rem;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.75rem;transition:all .2s}
+    .tempo-btn.active{background:var(--cyan);color:var(--bg);border-color:var(--cyan)}
+    .cycle-info{text-align:center;color:var(--muted);font-size:.8rem;margin-top:.5rem}
+
+    /* MDO Domains */
+    .section-title{text-align:center;margin:2.5rem 0 1rem;font-size:1.4rem}
+    .domains-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1rem 0}
+    .domain-card{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1.2rem;transition:all .3s}
+    .domain-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+    .domain-card .d-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem}
+    .domain-card .d-icon{font-size:1.5rem}
+    .domain-card .d-name{font-weight:700;font-size:1rem}
+    .domain-card .d-agents{display:flex;flex-wrap:wrap;gap:.3rem}
+
+    /* Synergy */
+    .synergy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1rem 0}
+    .synergy-card{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1rem;display:flex;gap:.8rem;align-items:center}
+    .synergy-card .s-icon{font-size:2rem;flex-shrink:0}
+    .synergy-card .s-name{font-weight:700;font-size:.9rem}
+    .synergy-card .s-desc{font-size:.75rem;color:var(--muted)}
+
+    /* Task Forces */
+    .tf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin:1rem 0}
+    .tf-card{background:var(--card);border-left:3px solid var(--cyan);border-radius:0 1rem 1rem 0;padding:1rem}
+    .tf-card .tf-name{font-weight:700;font-size:1rem;margin-bottom:.3rem}
+    .tf-card .tf-mission{font-size:.8rem;color:var(--muted);margin-bottom:.5rem}
+    .tf-card .tf-status{font-size:.75rem}
+    .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:.3rem}
+    .status-ready{background:var(--green)}
+    .status-active{background:var(--amber);animation:pulse 1.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+    /* Cloud Status */
+    .cloud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1rem 0}
+    .cloud-item{background:var(--card);border:1px solid var(--border);border-radius:.8rem;padding:.8rem;display:flex;align-items:center;gap:.6rem}
+    .cloud-item .c-icon{font-size:1.3rem}
+    .cloud-item .c-name{font-weight:600;font-size:.85rem}
+    .cloud-item .c-status{font-size:.7rem;color:var(--green)}
+
+    /* Swarm Models */
+    .swarm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin:1rem 0}
+    .swarm-card{background:var(--card);border:1px solid var(--border);border-radius:.8rem;padding:.7rem;font-size:.8rem}
+    .swarm-card .tier{font-weight:700;font-size:.7rem;text-transform:uppercase;margin-bottom:.3rem}
+    .tier-1{color:var(--green)}.tier-2{color:var(--amber)}.tier-3{color:var(--red)}
+    .swarm-card .model-name{font-weight:600}
+    .swarm-card .model-speed{color:var(--muted);font-size:.7rem}
+
+    /* Harness Pipeline */
+    .pipeline-viz{display:flex;align-items:center;justify-content:center;gap:0;margin:1.5rem auto;max-width:700px;flex-wrap:wrap}
+    .pipe-stage{padding:.8rem 1.2rem;background:var(--card);border:1px solid var(--border);text-align:center;min-width:100px;position:relative}
+    .pipe-stage:first-child{border-radius:1rem 0 0 1rem}
+    .pipe-stage:last-child{border-radius:0 1rem 1rem 0}
+    .pipe-stage .p-name{font-weight:700;font-size:.8rem}
+    .pipe-stage .p-status{font-size:.65rem;color:var(--green)}
+    .pipe-stage.running{border-color:var(--amber);background:rgba(245,158,11,.1)}
+    .pipe-stage.running .p-status{color:var(--amber)}
+    .pipe-arrow{color:var(--cyan);font-size:1.2rem;padding:0 .2rem}
+
+    /* Install Banner */
+    .install-banner{display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#1e1b4b,#0f172a);padding:1rem;text-align:center;z-index:100;border-top:1px solid var(--purple)}
+    .install-banner.show{display:block}
+    .install-btn{background:var(--purple);color:#fff;border:none;padding:.6rem 1.5rem;border-radius:2rem;font-weight:700;cursor:pointer;font-size:.9rem}
+
+    footer{text-align:center;padding:2rem 1rem;color:var(--muted);font-size:.75rem;border-top:1px solid var(--border);margin-top:2rem}
+    @media(max-width:768px){header h1{font-size:1.6rem}.ooda-ring{flex-direction:column;max-width:300px}.ooda-phase:first-child{border-radius:1rem 1rem 0 0}.ooda-phase:last-child{border-radius:0 0 1rem 1rem}}
+  </style>
 </head>
 <body>
 
-<a class="skip-link" href="#main-content">Skip to main content</a>
-
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-<!-- Header -->
-<header class="header" role="banner">
-  <div class="header-left">
-    <h1><span class="accent">AI</span> Orchestration Hub</h1>
-  </div>
-  <nav class="header-nav" id="main-nav" aria-label="Main navigation">
-    <a href="#models" data-en="Models" data-ko="모델">Models</a>
-    <a href="#agents" data-en="Agents" data-ko="에이전트">Agents</a>
-    <a href="#architecture" data-en="Architecture" data-ko="아키텍처">Architecture</a>
-    <a href="#sentinel" data-en="Sentinel" data-ko="센티넬">Sentinel</a>
-    <a href="#cloud" data-en="Cloud" data-ko="클라우드">Cloud</a>
-    <a href="#repos" data-en="Repos" data-ko="레포">Repos</a>
-  </nav>
-  <div class="header-right">
-    <div class="header-stats" aria-label="System status">
-      <span><span class="pulse" aria-hidden="true"></span><span data-en="ONLINE" data-ko="온라인">ONLINE</span></span>
-    </div>
-    <div class="lang-toggle" role="radiogroup" aria-label="Language selection">
-      <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
-      <button class="lang-btn" data-lang="ko" aria-pressed="false">한국어</button>
-    </div>
-    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+<header>
+  <h1>MDO Command Center</h1>
+  <p>Multi-Domain Operations &middot; OODA Loop &middot; AI Orchestration Hub</p>
+  <div style="margin-top:.8rem">
+    <span class="badge badge-cyan">OODA Loop</span>
+    <span class="badge badge-purple">MDO Architecture</span>
+    <span class="badge badge-green">93 Models</span>
+    <span class="badge badge-amber">Harness CI/CD</span>
+    <span class="badge badge-red">PWA Ready</span>
   </div>
 </header>
 
-<main id="main-content">
+<div class="container">
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-inner">
-      <h2 class="hero-title" data-en="93-Model Swarm&#10;Command Center" data-ko="93-모델 스웜&#10;커맨드 센터">93-Model Swarm<br/>Command Center</h2>
-      <p class="hero-subtitle" id="hero-subtitle" data-en="Enterprise-grade AI orchestration engine coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration." data-ko="93개 AI 모델을 15개 에이전트 프레임워크에서 실시간 스웜 라우팅, 멀티 티어 합의, GPU 클라우드 통합으로 조율하는 엔터프라이즈급 AI 오케스트레이션 엔진.">Enterprise-grade AI orchestration engine coordinating 93 models across 15 agent frameworks with real-time swarm routing, multi-tier consensus, and GPU cloud integration.</p>
-      <p class="ko-humor" data-ko-only="true">(방구석 분석가의 꿈의 대시보드 🛋️)</p>
-      <p class="ko-humor" data-ko-only="true">이 대시보드를 혼자 만든 인간의 정신력 🫡</p>
-      <div class="hero-badges" aria-label="Key technologies">
-        <span class="badge badge-cyan">SwarmRouter</span>
-        <span class="badge badge-green">LiteLLM Proxy</span>
-        <span class="badge badge-purple">OpenRouter Wildcard</span>
-        <span class="badge badge-orange">A100 GPU Cloud</span>
+  <!-- OODA Cycle -->
+  <section class="ooda-section" id="ooda">
+    <h2>OODA Decision Cycle</h2>
+    <div class="ooda-ring" id="oodaRing">
+      <div class="ooda-phase active" data-phase="observe" onclick="advanceOODA()">
+        <div class="icon">&#x1F441;</div>
+        <div class="label">Observe</div>
+        <div class="sub">Scan &middot; Detect &middot; Monitor</div>
+      </div>
+      <div class="ooda-phase" data-phase="orient" onclick="advanceOODA()">
+        <div class="icon">&#x1F9ED;</div>
+        <div class="label">Orient</div>
+        <div class="sub">Analyze &middot; Synthesize &middot; Context</div>
+      </div>
+      <div class="ooda-phase" data-phase="decide" onclick="advanceOODA()">
+        <div class="icon">&#x2696;</div>
+        <div class="label">Decide</div>
+        <div class="sub">Plan &middot; Prioritize &middot; Commit</div>
+      </div>
+      <div class="ooda-phase" data-phase="act" onclick="advanceOODA()">
+        <div class="icon">&#x26A1;</div>
+        <div class="label">Act</div>
+        <div class="sub">Execute &middot; Deploy &middot; Verify</div>
       </div>
     </div>
+    <div class="tempo-bar">
+      <button class="tempo-btn" onclick="setTempo('strategic')">Strategic</button>
+      <button class="tempo-btn active" onclick="setTempo('operational')">Operational</button>
+      <button class="tempo-btn" onclick="setTempo('tactical')">Tactical</button>
+    </div>
+    <div class="cycle-info" id="cycleInfo">Cycle #0 &middot; Phase: OBSERVE &middot; Tempo: Operational</div>
   </section>
 
-  <div class="container">
-
-    <!-- Stats Bar -->
-    <div class="stats-bar section-animate" role="region" aria-label="Dashboard statistics">
-      <div class="stat-card">
-        <div class="stat-number" data-target="93">0</div>
-        <div class="stat-label" data-en="AI Models" data-ko="AI 모델">AI Models</div>
+  <!-- MDO Domains -->
+  <h2 class="section-title" style="color:var(--purple)">MDO Domains</h2>
+  <div class="domains-grid">
+    <div class="domain-card">
+      <div class="d-header"><span class="d-icon">&#x1F4BB;</span><span class="d-name">Code Domain</span></div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Source code, builds, tests, deployments</p>
+      <div class="d-agents">
+        <span class="badge badge-cyan">executor</span>
+        <span class="badge badge-green">build-fixer</span>
+        <span class="badge badge-purple">test-engineer</span>
       </div>
-      <div class="stat-card">
-        <div class="stat-number" data-target="15">0</div>
-        <div class="stat-label" data-en="Agent Frameworks" data-ko="에이전트 프레임워크">Agent Frameworks</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" data-target="60" data-suffix="+">0</div>
-        <div class="stat-label" data-en="Repositories" data-ko="레포지토리">Repositories</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" data-target="3">0</div>
-        <div class="stat-label" data-en="Routing Tiers" data-ko="라우팅 티어">Routing Tiers</div>
-      </div>
-      <p class="ko-humor stats-humor" data-ko-only="true">혼자서 이 짓을... 정상인가? 아니다. 계속한다. 🫡</p>
     </div>
-
-    <!-- Wildcard Router -->
-    <section id="router" class="section-animate" aria-labelledby="router-title">
-      <div class="wildcard-banner">
-        <div class="wildcard-icon" aria-hidden="true">&#x1F300;</div>
-        <div class="wildcard-text">
-          <h3 id="router-title" data-en="OpenRouter Wildcard Routing" data-ko="OpenRouter 와일드카드 라우팅">OpenRouter Wildcard Routing</h3>
-          <p data-en="Dynamic model resolution via openrouter/* wildcard. Any OpenRouter-compatible model is accessible on-demand through LiteLLM proxy with automatic failover and health monitoring." data-ko="openrouter/* 와일드카드를 통한 동적 모델 해석. LiteLLM 프록시를 통해 자동 페일오버와 상태 모니터링으로 모든 OpenRouter 호환 모델에 온디맨드 접근.">Dynamic model resolution via openrouter/* wildcard. Any OpenRouter-compatible model is accessible on-demand through LiteLLM proxy with automatic failover and health monitoring.</p>
-        </div>
-        <div class="wildcard-count" aria-label="93 active models">
-          <div class="num">93</div>
-          <div class="label" data-en="Active Models" data-ko="활성 모델">Active Models</div>
-        </div>
+    <div class="domain-card">
+      <div class="d-header"><span class="d-icon">&#x1F3AF;</span><span class="d-name">Orchestration</span></div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Agent coordination, task routing, OODA cycle</p>
+      <div class="d-agents">
+        <span class="badge badge-cyan">architect</span>
+        <span class="badge badge-purple">planner</span>
+        <span class="badge badge-amber">analyst</span>
       </div>
-    </section>
-
-    <!-- Model Swarm Tiers -->
-    <section id="models" class="section-animate" aria-labelledby="models-title">
-      <h2 class="section-title" id="models-title"><span class="icon" aria-hidden="true">&#x26A1;</span> <span data-en="Model Swarm Tiers" data-ko="모델 스웜 티어">Model Swarm Tiers</span></h2>
-      <p class="section-sub" data-en="Auto-routing classifies prompt complexity and dispatches to optimal tier for latency-quality tradeoff." data-ko="자동 라우팅이 프롬프트 복잡도를 분류하고 지연-품질 트레이드오프를 위한 최적 티어로 디스패치합니다.">Auto-routing classifies prompt complexity and dispatches to optimal tier for latency-quality tradeoff.</p>
-      <div class="tier-grid" id="tier-grid" role="region" aria-label="Model tiers">
-        <!-- Populated by JS from data/tiers.json -->
+    </div>
+    <div class="domain-card">
+      <div class="d-header"><span class="d-icon">&#x1F4CA;</span><span class="d-name">Data &amp; Knowledge</span></div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Research, documentation, data pipelines</p>
+      <div class="d-agents">
+        <span class="badge badge-green">scientist</span>
+        <span class="badge badge-cyan">doc-specialist</span>
+        <span class="badge badge-purple">explore</span>
       </div>
-    </section>
-
-    <!-- Architecture -->
-    <section id="architecture" class="section-animate" aria-labelledby="arch-title">
-      <h2 class="section-title" id="arch-title"><span class="icon" aria-hidden="true">&#x1F3D7;</span> <span data-en="Orchestration Architecture" data-ko="오케스트레이션 아키텍처">Orchestration Architecture</span></h2>
-      <p class="section-sub" data-en="End-to-end request flow from application layer through SwarmRouter to model execution." data-ko="애플리케이션 레이어에서 SwarmRouter를 거쳐 모델 실행까지의 엔드투엔드 요청 플로우.">End-to-end request flow from application layer through SwarmRouter to model execution.</p>
-      <div class="arch-container" role="img" aria-label="Architecture flow diagram">
-        <div class="arch-row-label" data-en="Orchestration Layer" data-ko="오케스트레이션 레이어">Orchestration Layer</div>
-        <div class="arch-flow">
-          <div class="arch-node">
-            <div class="node-icon" aria-hidden="true">&#x1F4BB;</div>
-            <div class="node-label">Application</div>
-            <div class="node-sub">Claude Code / API</div>
-          </div>
-          <div class="arch-arrow" aria-hidden="true">
-            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
-          </div>
-          <div class="arch-node node-purple">
-            <div class="node-icon" aria-hidden="true">&#x1F300;</div>
-            <div class="node-label">SwarmRouter</div>
-            <div class="node-sub">T1 / T2 / T3</div>
-          </div>
-          <div class="arch-arrow" aria-hidden="true">
-            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
-          </div>
-          <div class="arch-node node-green">
-            <div class="node-icon" aria-hidden="true">&#x2699;</div>
-            <div class="node-label">LiteLLM Proxy</div>
-            <div class="node-sub">93 Models</div>
-          </div>
-          <div class="arch-arrow" aria-hidden="true">
-            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
-          </div>
-          <div class="arch-node node-orange">
-            <div class="node-icon" aria-hidden="true">&#x1F310;</div>
-            <div class="node-label">Providers</div>
-            <div class="node-sub">OpenRouter / Direct</div>
-          </div>
-          <div class="arch-arrow" aria-hidden="true">
-            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
-          </div>
-          <div class="arch-node node-cyan">
-            <div class="node-icon" aria-hidden="true">&#x1F9E0;</div>
-            <div class="node-label">Model Exec</div>
-            <div class="node-sub">GPU / Cloud</div>
-          </div>
-        </div>
-        <div class="arch-divider"></div>
-        <div class="arch-row-label" data-en="Knowledge &amp; Agent Layer" data-ko="지식 &amp; 에이전트 레이어">Knowledge &amp; Agent Layer</div>
-        <div class="arch-flow">
-          <div class="arch-node">
-            <div class="node-icon" aria-hidden="true">&#x1F50D;</div>
-            <div class="node-label">Knowledge Graph</div>
-            <div class="node-sub">kg-gen / cognee</div>
-          </div>
-          <div class="arch-arrow" aria-hidden="true">
-            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
-          </div>
-          <div class="arch-node node-purple">
-            <div class="node-icon" aria-hidden="true">&#x1F4DA;</div>
-            <div class="node-label">RAG Pipeline</div>
-            <div class="node-sub">RAG-Anything</div>
-          </div>
-          <div class="arch-arrow" aria-hidden="true">
-            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
-          </div>
-          <div class="arch-node node-green">
-            <div class="node-icon" aria-hidden="true">&#x1F9E0;</div>
-            <div class="node-label">Memory Layer</div>
-            <div class="node-sub">MemoryOS / ReMe</div>
-          </div>
-          <div class="arch-arrow" aria-hidden="true">
-            <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1.5"/><polygon points="32,2 40,6 32,10" fill="currentColor"/></svg>
-          </div>
-          <div class="arch-node node-cyan">
-            <div class="node-icon" aria-hidden="true">&#x1F916;</div>
-            <div class="node-label">Agent Teams</div>
-            <div class="node-sub">15 Frameworks</div>
-          </div>
-        </div>
+    </div>
+    <div class="domain-card">
+      <div class="d-header"><span class="d-icon">&#x2601;</span><span class="d-name">Infrastructure</span></div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Cloud, CI/CD, containers, networking</p>
+      <div class="d-agents">
+        <span class="badge badge-amber">devops</span>
+        <span class="badge badge-green">dagu</span>
+        <span class="badge badge-red">docker</span>
       </div>
-    </section>
-
-    <!-- Agent Frameworks -->
-    <section id="agents" class="section-animate" aria-labelledby="agents-title">
-      <h2 class="section-title" id="agents-title"><span class="icon" aria-hidden="true">&#x1F916;</span> <span data-en="Agent Framework Catalog" data-ko="에이전트 프레임워크 카탈로그">Agent Framework Catalog</span></h2>
-      <p class="section-sub" data-en="15 specialized frameworks for autonomous task execution, memory management, and multi-agent coordination." data-ko="자율 작업 실행, 메모리 관리, 멀티 에이전트 조율을 위한 15개 전문 프레임워크.">15 specialized frameworks for autonomous task execution, memory management, and multi-agent coordination.</p>
-      <div class="search-bar">
-        <input type="text" id="agent-search" data-placeholder-en="Search agents..." data-placeholder-ko="에이전트 검색..." placeholder="Search agents..." aria-label="Search agent frameworks"/>
+    </div>
+    <div class="domain-card">
+      <div class="d-header"><span class="d-icon">&#x1F6E1;</span><span class="d-name">Intelligence</span></div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:.5rem">Security, monitoring, threat detection</p>
+      <div class="d-agents">
+        <span class="badge badge-red">security-reviewer</span>
+        <span class="badge badge-amber">debugger</span>
+        <span class="badge badge-purple">qa-tester</span>
       </div>
-      <div class="agent-grid" id="agent-grid" role="region" aria-label="Agent frameworks">
-        <!-- Populated by JS from data/agents.json -->
-      </div>
-    </section>
-
-    <!-- Project Sentinel -->
-    <section id="sentinel" class="section-animate" aria-labelledby="sentinel-title">
-      <h2 class="section-title" id="sentinel-title"><span class="icon" aria-hidden="true">&#x1F6E1;</span> <span data-en="Project Sentinel" data-ko="프로젝트 센티넬">Project Sentinel</span></h2>
-      <p class="section-sub" data-en="OSINT-powered security monitoring and threat intelligence platform integrated with guardian-cli." data-ko="guardian-cli와 통합된 OSINT 기반 보안 모니터링 및 위협 인텔리전스 플랫폼.">OSINT-powered security monitoring and threat intelligence platform integrated with guardian-cli.</p>
-      <p class="ko-humor" data-ko-only="true">방구석 전략가가 만든 위협 인텔리전스 🕵️ 국정원도 이걸 보면 고개 끄덕일 것 같다 (아님말고)</p>
-      <div id="sentinel-content" role="region" aria-label="Project Sentinel security modules">
-        <!-- Populated by JS -->
-      </div>
-    </section>
-
-    <!-- GPU Cloud -->
-    <section id="cloud" class="section-animate" aria-labelledby="cloud-title">
-      <h2 class="section-title" id="cloud-title"><span class="icon" aria-hidden="true">&#x2601;</span> <span data-en="Elice GPU Cloud" data-ko="Elice GPU 클라우드">Elice GPU Cloud</span></h2>
-      <p class="section-sub" data-en="A100 80GB GPU cluster running vLLM, AutoML, OCR, and research agent workloads." data-ko="vLLM, AutoML, OCR, 리서치 에이전트 워크로드를 실행하는 A100 80GB GPU 클러스터.">A100 80GB GPU cluster running vLLM, AutoML, OCR, and research agent workloads.</p>
-      <p class="ko-humor" data-ko-only="true">안타깝게 이건 내가 클라우드 끄면 여러분은 못쓰신다 🫠 A100 전기세가 문제임 (내 카드 아님, 엘리스 님 카드)</p>
-      <div class="gpu-card">
-        <div class="gpu-specs">
-          <h3 data-en="Hardware" data-ko="하드웨어">Hardware</h3>
-          <div class="gpu-spec-item"><span class="gpu-spec-label">GPU</span><span class="gpu-spec-value">NVIDIA A100 80GB PCIe</span></div>
-          <div class="gpu-spec-item"><span class="gpu-spec-label">CUDA</span><span class="gpu-spec-value">12.2</span></div>
-          <div class="gpu-spec-item"><span class="gpu-spec-label">MIG Slice</span><span class="gpu-spec-value">20GB Partition</span></div>
-          <div class="gpu-spec-item"><span class="gpu-spec-label">Disk</span><span class="gpu-spec-value">128GB SSD</span></div>
-          <div class="gpu-spec-item"><span class="gpu-spec-label">OS</span><span class="gpu-spec-value">Ubuntu Linux</span></div>
-          <div class="gpu-spec-item"><span class="gpu-spec-label">Python</span><span class="gpu-spec-value">3.10.12</span></div>
-        </div>
-        <div class="gpu-services">
-          <h3 data-en="Active Services" data-ko="활성 서비스">Active Services</h3>
-          <div class="gpu-service-list">
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>vLLM v0.15.1 — Qwen2.5-3B-Instruct</div>
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>LiteLLM Proxy — 93 Models</div>
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>surya-ocr v0.17.1 — Document OCR</div>
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>pix2text v1.1.6 — Math OCR</div>
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>AutoGluon v1.5.0 — AutoML</div>
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>RD-Agent — MS Research Agent</div>
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>UltraRAG — RAG Engine</div>
-            <div class="gpu-svc"><span class="svc-dot" aria-hidden="true"></span>DeepEval — LLM Evaluation</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Live Metrics Dashboard -->
-    <section id="metrics" class="section-animate" aria-labelledby="metrics-title">
-      <h2 class="section-title" id="metrics-title"><span class="icon" aria-hidden="true">&#x1F4CA;</span> <span data-en="Live System Metrics" data-ko="실시간 시스템 메트릭">Live System Metrics</span></h2>
-      <p class="section-sub" data-en="Real-time performance metrics from the orchestration engine. Data refreshes every 10 seconds via Service Worker backend." data-ko="오케스트레이션 엔진의 실시간 성능 메트릭. Service Worker 백엔드를 통해 10초마다 데이터 갱신.">Real-time performance metrics from the orchestration engine. Data refreshes every 10 seconds via Service Worker backend.</p>
-      <p class="ko-humor" data-ko-only="true">(숫자가 움직이면 백엔드가 살아있다는 뜻... 아마도 🤔)</p>
-      <div id="metrics-dashboard" role="region" aria-label="Live metrics dashboard"></div>
-    </section>
-
-    <!-- AI Routing Demo -->
-    <section id="routing-demo" class="section-animate" aria-labelledby="routing-title">
-      <h2 class="section-title" id="routing-title"><span class="icon" aria-hidden="true">&#x1F300;</span> <span data-en="AI Routing Demo" data-ko="AI 라우팅 데모">AI Routing Demo</span></h2>
-      <p class="section-sub" data-en="Enter a prompt to see how SwarmRouter classifies complexity and selects the optimal model tier." data-ko="프롬프트를 입력하면 SwarmRouter가 복잡도를 분류하고 최적 모델 티어를 선택하는 과정을 확인할 수 있습니다.">Enter a prompt to see how SwarmRouter classifies complexity and selects the optimal model tier.</p>
-      <p class="ko-humor" data-ko-only="true">방구석 AI 제국 실시간 라우팅 데모 🏰</p>
-      <div class="routing-demo-box">
-        <textarea id="route-input" rows="3" data-placeholder-en="Type a prompt to route... (e.g., 'analyze this code for security vulnerabilities')" data-placeholder-ko="라우팅할 프롬프트 입력... (예: '이 코드의 보안 취약점을 분석해줘')" placeholder="Type a prompt to route... (e.g., 'analyze this code for security vulnerabilities')" aria-label="Prompt input for routing demo"></textarea>
-        <button id="route-btn" class="route-button" data-en="Route Query" data-ko="라우팅 실행">Route Query</button>
-        <div id="route-result" class="route-result" role="status" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <!-- OSINT Crawler Status -->
-    <section id="crawler" class="section-animate" aria-labelledby="crawler-title">
-      <h2 class="section-title" id="crawler-title"><span class="icon" aria-hidden="true">&#x1F577;</span> <span data-en="OSINT Crawler &amp; RSS Feeds" data-ko="OSINT 크롤러 &amp; RSS 피드">OSINT Crawler &amp; RSS Feeds</span></h2>
-      <p class="section-sub" data-en="Automated intelligence gathering from CVE databases, vulnerability feeds, and threat sources. Data cached in Elice Cloud temp storage with 6-hour auto-purge." data-ko="CVE 데이터베이스, 취약점 피드, 위협 소스에서 자동 정보 수집. 엘리스 클라우드 임시 저장소에 캐시, 6시간 자동 삭제.">Automated intelligence gathering from CVE databases, vulnerability feeds, and threat sources. Data cached in Elice Cloud temp storage with 6-hour auto-purge.</p>
-      <p class="ko-humor" data-ko-only="true">국가정보학과 OSINT 수업에서 배운 것들 총동원 🕵️ (교수님이 보시면 뿌듯하실 듯)</p>
-      <div id="crawler-status" role="region" aria-label="OSINT crawler status"></div>
-    </section>
-
-    <!-- Repository Map -->
-    <section id="repos" class="section-animate" aria-labelledby="repos-title">
-      <h2 class="section-title" id="repos-title"><span class="icon" aria-hidden="true">&#x1F4C1;</span> <span data-en="Repository Ecosystem (60+)" data-ko="레포지토리 생태계 (60+)">Repository Ecosystem (60+)</span></h2>
-      <p class="section-sub" data-en="Complete repository map spanning agent frameworks, OSINT tools, security scanners, and development utilities." data-ko="에이전트 프레임워크, OSINT 도구, 보안 스캐너, 개발 유틸리티를 아우르는 전체 레포지토리 맵.">Complete repository map spanning agent frameworks, OSINT tools, security scanners, and development utilities.</p>
-      <div class="search-bar">
-        <input type="text" id="repo-search" data-placeholder-en="Search repositories..." data-placeholder-ko="레포지토리 검색..." placeholder="Search repositories..." aria-label="Search repositories"/>
-      </div>
-      <div class="repo-legend" aria-label="Language legend">
-        <span class="legend-item"><span class="repo-dot node" aria-hidden="true"></span> Node.js</span>
-        <span class="legend-item"><span class="repo-dot python" aria-hidden="true"></span> Python</span>
-        <span class="legend-item"><span class="repo-dot go" aria-hidden="true"></span> Go</span>
-        <span class="legend-item"><span class="repo-dot other" aria-hidden="true"></span> Other</span>
-      </div>
-      <div class="filter-buttons" id="repo-filters" aria-label="Filter by category">
-        <button class="filter-btn" data-category="Agent">Agent</button>
-        <button class="filter-btn" data-category="AI">AI</button>
-        <button class="filter-btn" data-category="OSINT">OSINT</button>
-        <button class="filter-btn" data-category="Security">Security</button>
-        <button class="filter-btn" data-category="Memory">Memory</button>
-        <button class="filter-btn" data-category="Dev Tools">Dev Tools</button>
-        <button class="filter-btn" data-category="Data">Data</button>
-        <button class="filter-btn" data-category="Automation">Automation</button>
-      </div>
-      <div class="repo-grid" id="repo-grid" role="list" aria-label="Repositories">
-        <!-- Populated by JS from data/repos.json -->
-      </div>
-    </section>
-
+    </div>
   </div>
-</main>
 
-<footer class="footer" role="contentinfo">
-  <div class="footer-inner">
-    <p data-en="AI Orchestration Hub — Powered by 93 models, 15 agent frameworks, and Elice A100 GPU Cloud" data-ko="AI 오케스트레이션 허브 — 93개 모델, 15개 에이전트 프레임워크, Elice A100 GPU 클라우드">AI Orchestration Hub — Powered by 93 models, 15 agent frameworks, and Elice A100 GPU Cloud</p>
-    <p class="footer-credits"><a href="https://github.com/Swn94">@Swn94</a> &middot; SwarmRouter + LiteLLM + OpenRouter</p>
-    <p class="ko-humor footer-humor" data-ko-only="true">돈이없다... 그래도 만든다 💪 | GitHub Stars: 0 / 꿈의 크기: ∞ / 통장 잔고: 비밀</p>
+  <!-- Cross-Domain Synergy -->
+  <h2 class="section-title" style="color:var(--green)">Cross-Domain Synergy</h2>
+  <div class="synergy-grid">
+    <div class="synergy-card"><span class="s-icon">&#x1F680;</span><div><div class="s-name">Full-Stack Blitz</div><div class="s-desc">Code + Orchestration + Infrastructure converge for rapid feature delivery</div></div></div>
+    <div class="synergy-card"><span class="s-icon">&#x1F50D;</span><div><div class="s-name">Deep Recon</div><div class="s-desc">Intelligence + Data domains merge for threat analysis and research</div></div></div>
+    <div class="synergy-card"><span class="s-icon">&#x1F300;</span><div><div class="s-name">Swarm Deploy</div><div class="s-desc">All 5 domains coordinate for zero-downtime production releases</div></div></div>
+    <div class="synergy-card"><span class="s-icon">&#x1F9E0;</span><div><div class="s-name">Knowledge Ops</div><div class="s-desc">Data + Orchestration for automated documentation and learning</div></div></div>
   </div>
-</footer>
 
-<!-- Activity Feed Toggle -->
-<button id="activity-toggle" class="activity-toggle" aria-label="Toggle activity feed" title="Activity Feed">&#x1F4E1;</button>
-<div id="activity-panel" class="activity-panel" role="log" aria-label="Activity feed">
-  <div class="activity-header" data-en="Live Activity Feed" data-ko="실시간 활동 피드">Live Activity Feed</div>
+  <!-- Agent Task Forces -->
+  <h2 class="section-title" style="color:var(--amber)">Agent Task Forces</h2>
+  <div class="tf-grid">
+    <div class="tf-card" style="border-left-color:var(--green)">
+      <div class="tf-name">TF ALPHA &mdash; Feature Dev</div>
+      <div class="tf-mission">Analyst &rarr; Planner &rarr; Executor &rarr; Test &rarr; Verify</div>
+      <div class="tf-status"><span class="status-dot status-ready"></span>Ready</div>
+    </div>
+    <div class="tf-card" style="border-left-color:var(--red)">
+      <div class="tf-name">TF BRAVO &mdash; Incident</div>
+      <div class="tf-mission">Explore + Debugger + Executor &rarr; Hotfix</div>
+      <div class="tf-status"><span class="status-dot status-ready"></span>Standby</div>
+    </div>
+    <div class="tf-card" style="border-left-color:var(--blue)">
+      <div class="tf-name">TF CHARLIE &mdash; Knowledge</div>
+      <div class="tf-mission">Scientist + Doc-Specialist + Writer</div>
+      <div class="tf-status"><span class="status-dot status-ready"></span>Ready</div>
+    </div>
+    <div class="tf-card" style="border-left-color:var(--purple)">
+      <div class="tf-name">TF DELTA &mdash; Security</div>
+      <div class="tf-mission">Security-Reviewer + Pen-Test + Code-Audit</div>
+      <div class="tf-status"><span class="status-dot status-active"></span>Monitoring</div>
+    </div>
+    <div class="tf-card" style="border-left-color:var(--amber)">
+      <div class="tf-name">TF ECHO &mdash; Platform</div>
+      <div class="tf-mission">DevOps + Docker + Dagu + Harness CI/CD</div>
+      <div class="tf-status"><span class="status-dot status-active"></span>Deploying</div>
+    </div>
+  </div>
+
+  <!-- Cloud Connection Status -->
+  <h2 class="section-title" style="color:var(--cyan)">Cloud Connections</h2>
+  <div class="cloud-grid">
+    <div class="cloud-item"><span class="c-icon">&#x2601;</span><div><div class="c-name">Elice Cloud (A100)</div><div class="c-status">&#x2713; SSH Tunnel Active</div></div></div>
+    <div class="cloud-item"><span class="c-icon">&#x1F4E6;</span><div><div class="c-name">Replit Backend</div><div class="c-status">&#x2713; API Server Ready</div></div></div>
+    <div class="cloud-item"><span class="c-icon">&#x2699;</span><div><div class="c-name">Harness CI/CD</div><div class="c-status">&#x2713; Pipeline Active</div></div></div>
+    <div class="cloud-item"><span class="c-icon">&#x1F310;</span><div><div class="c-name">GitHub Pages</div><div class="c-status">&#x2713; PWA Deployed</div></div></div>
+    <div class="cloud-item"><span class="c-icon">&#x1F517;</span><div><div class="c-name">Tailscale VPN</div><div class="c-status">&#x2713; Mesh Connected</div></div></div>
+    <div class="cloud-item"><span class="c-icon">&#x1F916;</span><div><div class="c-name">LiteLLM Proxy</div><div class="c-status">&#x2713; 85+ Models</div></div></div>
+  </div>
+
+  <!-- Harness Pipeline -->
+  <h2 class="section-title" style="color:var(--amber)">Harness CI/CD Pipeline</h2>
+  <div class="pipeline-viz">
+    <div class="pipe-stage"><div class="p-name">Git Push</div><div class="p-status">&#x2713; master</div></div>
+    <span class="pipe-arrow">&rarr;</span>
+    <div class="pipe-stage"><div class="p-name">Webhook</div><div class="p-status">&#x2713; Trigger</div></div>
+    <span class="pipe-arrow">&rarr;</span>
+    <div class="pipe-stage running"><div class="p-name">Pipeline</div><div class="p-status">&#x25CF; Running #13</div></div>
+    <span class="pipe-arrow">&rarr;</span>
+    <div class="pipe-stage"><div class="p-name">Deploy</div><div class="p-status">gh-pages</div></div>
+    <span class="pipe-arrow">&rarr;</span>
+    <div class="pipe-stage"><div class="p-name">Live</div><div class="p-status">Pages &#x2713;</div></div>
+  </div>
+
+  <!-- AI Model Swarm -->
+  <h2 class="section-title" style="color:var(--green)">AI Model Swarm</h2>
+  <div class="swarm-grid">
+    <div class="swarm-card"><div class="tier tier-1">T1 &mdash; Fast (3-10s)</div><div class="model-name">Gemini Flash</div><div class="model-speed">~3s</div></div>
+    <div class="swarm-card"><div class="tier tier-1">T1 &mdash; Fast</div><div class="model-name">Gemini 3 Flash</div><div class="model-speed">~3s</div></div>
+    <div class="swarm-card"><div class="tier tier-1">T1 &mdash; Fast</div><div class="model-name">Qwen3 Coder</div><div class="model-speed">~5s</div></div>
+    <div class="swarm-card"><div class="tier tier-1">T1 &mdash; Fast</div><div class="model-name">Mistral Small 3.2</div><div class="model-speed">~9s</div></div>
+    <div class="swarm-card"><div class="tier tier-1">T1 &mdash; Fast</div><div class="model-name">MiniMax M2.5</div><div class="model-speed">~10s</div></div>
+    <div class="swarm-card"><div class="tier tier-2">T2 &mdash; Power (5-14s)</div><div class="model-name">DeepSeek V3</div><div class="model-speed">~5s</div></div>
+    <div class="swarm-card"><div class="tier tier-2">T2 &mdash; Power</div><div class="model-name">Gemini 3 Pro</div><div class="model-speed">~7s</div></div>
+    <div class="swarm-card"><div class="tier tier-2">T2 &mdash; Power</div><div class="model-name">Claude Haiku 4.5</div><div class="model-speed">~5s</div></div>
+    <div class="swarm-card"><div class="tier tier-2">T2 &mdash; Power</div><div class="model-name">Qwen3 235B</div><div class="model-speed">~14s</div></div>
+    <div class="swarm-card"><div class="tier tier-3">T3 &mdash; Deep (21s+)</div><div class="model-name">DeepSeek R1</div><div class="model-speed">~21s</div></div>
+  </div>
+
 </div>
 
-<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#x2191;</button>
+<!-- Install Banner -->
+<div class="install-banner" id="installBanner">
+  <p style="margin-bottom:.5rem;font-weight:600">Install MDO Command Center</p>
+  <button class="install-btn" id="installBtn" onclick="installPWA()">Install App</button>
+</div>
 
-<!-- Service Worker Registration -->
+<footer>
+  <p>MDO Command Center v2.0.0 &middot; OODA Loop Architecture &middot; Harness Engineering</p>
+  <p style="margin-top:.3rem">GitHub: hugefisco94 &middot; Replit: mdo-api-server &middot; Harness: deploy_ai_orchestration_hub</p>
+</footer>
+
 <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js', { scope: './' })
-    .then(function(reg) { console.log('SW registered:', reg.scope); })
-    .catch(function(err) { console.warn('SW registration failed:', err); });
-}
-</script>
+  // OODA State
+  const phases = ['observe','orient','decide','act'];
+  let currentPhase = 0, cycleCount = 0, tempo = 'operational';
 
-<script src="js/components.js"></script>
-<script src="js/interactive.js"></script>
-<script src="js/app.js"></script>
-<script src="js/particles.js"></script>
+  function advanceOODA() {
+    currentPhase = (currentPhase + 1) % 4;
+    if (currentPhase === 0) cycleCount++;
+    document.querySelectorAll('.ooda-phase').forEach((el, i) => {
+      el.classList.toggle('active', i === currentPhase);
+    });
+    document.getElementById('cycleInfo').textContent =
+      `Cycle #${cycleCount} \u00b7 Phase: ${phases[currentPhase].toUpperCase()} \u00b7 Tempo: ${tempo.charAt(0).toUpperCase()+tempo.slice(1)}`;
+  }
+
+  function setTempo(t) {
+    tempo = t;
+    document.querySelectorAll('.tempo-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === t));
+    document.getElementById('cycleInfo').textContent =
+      `Cycle #${cycleCount} \u00b7 Phase: ${phases[currentPhase].toUpperCase()} \u00b7 Tempo: ${tempo.charAt(0).toUpperCase()+tempo.slice(1)}`;
+  }
+
+  // Auto-advance OODA cycle
+  setInterval(() => {
+    const speeds = { strategic: 8000, operational: 4000, tactical: 2000 };
+    // Visual pulse on active phase
+    const active = document.querySelector('.ooda-phase.active');
+    if (active) { active.style.opacity = '0.7'; setTimeout(() => active.style.opacity = '1', 300); }
+  }, 2000);
+
+  // PWA Install
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installBanner').classList.add('show');
+  });
+  function installPWA() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        document.getElementById('installBanner').classList.remove('show');
+        deferredPrompt = null;
+      });
+    }
+  }
+
+  // Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+</script>
 </body>
 </html>
-<!-- v2.0.0 deployed 2026-02-26T11:37:44Z -->
