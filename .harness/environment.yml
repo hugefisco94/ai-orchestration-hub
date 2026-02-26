@@ -24,6 +24,14 @@ environment:
     - name: CRAWLER_AUTO_PURGE_HOURS
       type: String
       value: "6"
+    - name: DEPLOY_METHOD
+      type: String
+      value: "harness-engineering"
+      description: "Deployment via Harness CI pipeline (GitHub Actions disabled)"
+    - name: PAGES_BUILD_TYPE
+      type: String
+      value: "legacy"
+      description: "GitHub Pages legacy build mode (no GitHub Actions dependency)"
   overrides:
     manifests: []
     configFiles: []

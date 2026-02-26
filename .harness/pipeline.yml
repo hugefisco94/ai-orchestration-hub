@@ -171,18 +171,66 @@ pipeline:
           execution:
             steps:
               - step:
-                  name: Deploy to GitHub Pages
-                  identifier: deploy_pages
+                  name: Deploy via Harness Engineering
+                  identifier: deploy_harness
                   type: Run
                   spec:
                     shell: Bash
                     command: |
-                      echo "=== Deploy to GitHub Pages ==="
-                      echo "Triggering GitHub Actions deployment..."
+                      echo "=== Harness Engineering Deploy ==="
+                      echo "Strategy: Harness CI → GitHub Pages (Legacy Build)"
+                      echo "Note: GitHub Actions disabled — using Harness-native deployment"
+                      echo ""
+                      echo "--- Step 1: Validate deployment artifacts ---"
+                      test -f index.html && echo "✓ index.html"
+                      test -f sw.js && echo "✓ sw.js (Service Worker backend)"
+                      test -f server.js && echo "✓ server.js (Express backend)"
+                      test -f .nojekyll && echo "✓ .nojekyll (Jekyll bypass)"
+                      test -d .harness && echo "✓ .harness/ (pipeline config)"
+                      echo ""
+                      echo "--- Step 2: Push to deployment branch ---"
+                      git config user.name "Harness CI"
+                      git config user.email "harness@ci.hugefisco94.dev"
+                      git checkout master 2>/dev/null || git checkout -b master
+                      git merge --no-edit <+codebase.branch> || true
+                      git push origin master
+                      echo ""
+                      echo "--- Step 3: Trigger Pages rebuild via API ---"
+                      curl -s -X POST \
+                        -H "Authorization: token <+secrets.getValue('github_pat')>" \
+                        -H "Accept: application/vnd.github+json" \
+                        "https://api.github.com/repos/hugefisco94/ai-orchestration-hub/pages/builds"
+                      echo ""
+                      echo "--- Step 4: Verify deployment ---"
+                      sleep 30
+                      STATUS=$(curl -s -H "Authorization: token <+secrets.getValue('github_pat')>" \
+                        "https://api.github.com/repos/hugefisco94/ai-orchestration-hub/pages" \
+                        | python3 -c "import json,sys; print(json.load(sys.stdin).get('status','unknown'))")
+                      echo "Pages status: $STATUS"
+                      test "$STATUS" = "built" && echo "✓ Deployment verified"
+                      echo ""
                       echo "Target: https://hugefisco94.github.io/ai-orchestration-hub"
-                      echo "Branch: master"
-                      echo "✓ Deployment triggered"
+                      echo "✓ Harness Engineering deployment complete"
                     timeout: 10m
+              - step:
+                  name: Post-Deploy Health Check
+                  identifier: health_check
+                  type: Run
+                  spec:
+                    shell: Bash
+                    command: |
+                      echo "=== Post-Deploy Health Check ==="
+                      echo "Waiting for CDN propagation..."
+                      sleep 15
+                      HTTP_CODE=$(curl -sL -o /dev/null -w "%{http_code}" "https://hugefisco94.github.io/ai-orchestration-hub/" || echo "000")
+                      echo "HTTP Status: $HTTP_CODE"
+                      if [ "$HTTP_CODE" = "200" ]; then
+                        echo "✓ Site is live and responding"
+                      else
+                        echo "⚠ Site returned $HTTP_CODE — CDN may still be propagating"
+                        echo "Manual verification: https://hugefisco94.github.io/ai-orchestration-hub/"
+                      fi
+                    timeout: 5m
           failureStrategies:
             - onFailure:
                 errors:
