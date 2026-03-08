@@ -1,3 +1,5 @@
+> **DEPRECATED** — This repository has been consolidated into [mdo-nexus-ooda](https://github.com/hugefisco94/mdo-nexus-ooda). No further updates here.
+
 <p align="center">
   <img src="https://img.shields.io/badge/AI_Models-93-06b6d4?style=for-the-badge&logo=openai&logoColor=white" alt="93 AI Models"/>
   <img src="https://img.shields.io/badge/Agent_Frameworks-15-10b981?style=for-the-badge&logo=robot-framework&logoColor=white" alt="15 Agent Frameworks"/>
